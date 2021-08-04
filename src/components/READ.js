@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 function _READ(props) {
     let [_action, actionChange] = useState('')
@@ -13,29 +13,28 @@ function _READ(props) {
                 props.onSubmit(data)
             }}>
                 action  :
-                <input name="action" onChange={function(e){
+                <input name="action" onChange={function (e) {
                     actionChange(e.target.value)
                 }}></input>
                 <p></p>
 
                 path  :
-                <input name="path" onChange={function(e){
+                <input name="path" onChange={function (e) {
                     pathChange(e.target.value)
                 }}></input>
                 <p></p>
 
                 requestId  :
-                <input name="reqId" onChange={function(e){
+                <input name="reqId" onChange={function (e) {
                     reqIdChange(e.target.value)
                 }}></input>
 
-                <p><button value="Save" onClick={function(e){
+                <p><button value="Save" onClick={function (e) {
                     e.preventDefault()
-                    _temp = {...data}
-                    _temp.action=_action
-                    _temp.path=_path
-                    _temp.reqId=_reqId
-                    console.log(_temp)
+                    _temp = { ...data }
+                    _temp.action = _action
+                    _temp.path = _path
+                    _temp.reqId = _reqId
                     dataChange(_temp)
                 }}>save</button></p>
                 <p><input type="submit" value="Submit"></input></p>

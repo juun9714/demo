@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 
-function AUTH_READ(props) {
+function HISTORY_READ(props) {
+
     let [_action, actionChange] = useState('')
     let [_path, pathChange] = useState('')
-    let [_auth, authChange] = useState('')
+    let [_opType, oTChange] = useState('')
+    let [_opValue, oVChange] = useState('')
     let [_reqId, reqIdChange] = useState('')
-    let [data, dataChange] = useState({ action: '', path: '', auth: '', reqId: '' })
+    let [data, dataChange] = useState({ action: '', path: '', filter: { opType: '', opValue: '' }, reqId: '' })
     var _temp
-
     return (
-        <div className="auth_read" >
-
+        <div className="auth_read">
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 props.onSubmit(data)
@@ -28,9 +28,15 @@ function AUTH_READ(props) {
                 }}></input>
                 <p></p>
 
-                authorization  :
-                <input className="path" onChange={function (e) {
-                    authChange(e.target.value)
+                filter_(op-type)  :
+                <input className="op-type" onChange={function (e) {
+                    oTChange(e.target.value)
+                }}></input>
+                <p></p>
+
+                filter_(op-value)  :
+                <input className="op-value" onChange={function (e) {
+                    oVChange(e.target.value)
                 }}></input>
                 <p></p>
 
@@ -44,14 +50,19 @@ function AUTH_READ(props) {
                     _temp = { ...data }
                     _temp.action = _action
                     _temp.path = _path
-                    _temp.auth = _auth
+                    _temp.filter.opType = _opType
+                    _temp.filter.opValue = _opValue
                     _temp.reqId = _reqId
                     dataChange(_temp)
                 }}>save</button></p>
                 <p><input type="submit" value="Submit"></input></p>
+
             </form>
+
+
         </div>
     )
 }
 
-export default AUTH_READ
+
+export default HISTORY_READ
