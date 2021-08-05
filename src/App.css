@@ -1,6 +1,7 @@
 .App {
   text-align: left;
   padding:30px;
+  font-family: 'Gowun Batang', serif;
 }
 
 .App-logo {
@@ -42,4 +43,11 @@
   padding:20px;
   text-align: left;
   background-color: lemonchiffon;
+  margin-bottom: 20px;
+}
+
+.response{
+  margin-top:20px;
+  padding:30px;
+  background-color: lightgray;
 }

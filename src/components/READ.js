@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import Client from './Client';
 
 function _READ(props) {
     let [_action, actionChange] = useState('')
@@ -6,6 +7,10 @@ function _READ(props) {
     let [_reqId, reqIdChange] = useState('')
     let [data, dataChange] = useState({ action: '', path: '', reqId: '' })
     var _temp
+
+    useEffect(()=>{
+        console.log("useEffect of READ")
+    },[data])
     return (
         <div className="read">
             <form method="post" onSubmit={function (e) {
@@ -38,6 +43,7 @@ function _READ(props) {
                     dataChange(_temp)
                 }}>save</button></p>
                 <p><input type="submit" value="Submit"></input></p>
+               
             </form>
         </div>
     )
