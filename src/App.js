@@ -18,7 +18,7 @@ function App() {
   }, [])
 
 
-  var ws = new WebSocket("ws://localhost:8080")
+  var ws = new WebSocket("ws://localhost:3001")
   ws.opopen = () => {
     console.log("connected")
   }
@@ -120,7 +120,8 @@ function App() {
       }
       
 
-      < button onClick={() => {
+      < button onClick={(e) => {
+        e.preventDefault()
         console.log("CLIENT : make request => ", req)
         ws.send(JSON.stringify(req))
       }}>Websocket Request</button >

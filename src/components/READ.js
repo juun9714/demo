@@ -5,7 +5,7 @@ function _READ(props) {
     let [_action, actionChange] = useState('')
     let [_path, pathChange] = useState('')
     let [_reqId, reqIdChange] = useState('')
-    let [data, dataChange] = useState({ action: '', path: '', reqId: '' })
+    let [data, dataChange] = useState({ action: '', path: '', requestId: '' })
     var _temp
 
     useEffect(()=>{
