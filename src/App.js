@@ -12,16 +12,21 @@ function App() {
 
   let [res, resChange] = useState([])
   let [req, reqChange] = useState('111')
-
-  useEffect(() => {
-    console.log("useEffect")
-  }, [])
-
+  let [nothing, notChange] = useState('')
 
   var ws = new WebSocket("ws://localhost:3001")
-  ws.opopen = () => {
-    console.log("connected")
-  }
+
+  useEffect(() => {
+    console.log("useEffect of APP.js")
+  }, [])
+
+  ws.addEventListener('open',(e)=>{
+    console.log("connection established")
+  })
+
+  ws.addEventListener('close',(e)=>{
+    console.log("connection closed")
+  })
 
   ws.onmessage = (msg) => {
     console.log("onmessage : ", msg.data)
@@ -34,9 +39,9 @@ function App() {
     console.log("connection end")
   }
 
-  ws.onerror = (e) => {
-    console.log(e)
-  }
+  ws.addEventListener('error', function (e) {
+    console.log('WebSocket error: ', e);
+  });
 
   function retMode() {
     var _content = null
@@ -114,11 +119,11 @@ function App() {
       }}>HISTORY_READ</button></p>
 
       {
-        mode===""
-        ?null
-        :<div className="retMode">{retMode()}</div>
+        mode === ""
+          ? null
+          : <div className="retMode">{retMode()}</div>
       }
-      
+
 
       < button onClick={(e) => {
         e.preventDefault()
