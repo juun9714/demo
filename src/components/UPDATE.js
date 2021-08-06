@@ -1,41 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import Client from './Client';
 
-function AUTH_READ(props) {
+function UPDATE(props) {
     let [_action, actionChange] = useState('')
     let [_path, pathChange] = useState('')
-    let [_auth, authChange] = useState('')
+    let [_value, valueChange] = useState('')
     let [_reqId, reqIdChange] = useState('')
-    let [data, dataChange] = useState({ action: '', path: '', authorization: '', requestId: '' })
+    let [data, dataChange] = useState({ action: '', path: '', value: '', requestId: '' })
     var _temp
 
-    return (
-        <div className="auth_read" >
+    useEffect(() => {
+        console.log("useEffect of READ")
+    }, [data])
 
+
+    return (
+        <div className="read">
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 props.onSubmit(data)
             }}>
-
                 action  :
-                <input className="action" onChange={function (e) {
+                <input name="action" onChange={function (e) {
+                    e.preventDefault()
                     actionChange(e.target.value)
                 }}></input>
                 <p></p>
 
                 path  :
-                <input className="path" onChange={function (e) {
+                <input name="path" onChange={function (e) {
+                    e.preventDefault()
                     pathChange(e.target.value)
                 }}></input>
                 <p></p>
 
-                authorization  :
-                <input className="path" onChange={function (e) {
-                    authChange(e.target.value)
+                value  :
+                <input name="value" onChange={function (e) {
+                    e.preventDefault()
+                    valueChange(e.target.value)
                 }}></input>
                 <p></p>
 
                 requestId  :
-                <input className="reqId" onChange={function (e) {
+                <input name="reqId" onChange={function (e) {
+                    e.preventDefault()
                     reqIdChange(e.target.value)
                 }}></input>
 
@@ -44,14 +52,16 @@ function AUTH_READ(props) {
                     _temp = { ...data }
                     _temp.action = _action
                     _temp.path = _path
-                    _temp.authorization = _auth
+                    _temp.value = _value
                     _temp.requestId = _reqId
                     dataChange(_temp)
                 }}>save</button></p>
                 <p><input type="submit" value="Submit"></input></p>
+
             </form>
         </div>
     )
 }
 
-export default AUTH_READ
+
+export default UPDATE

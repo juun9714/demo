@@ -6,11 +6,14 @@ function _READ(props) {
     let [_path, pathChange] = useState('')
     let [_reqId, reqIdChange] = useState('')
     let [data, dataChange] = useState({ action: '', path: '', requestId: '' })
-    var _temp
+    let _temp
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log("useEffect of READ")
-    },[data])
+        console.log(_action)
+        console.log(data)
+        console.log("useEffect of READ")
+    }, [data, _action])
 
 
     return (
@@ -22,7 +25,14 @@ function _READ(props) {
                 action  :
                 <input name="action" onChange={function (e) {
                     e.preventDefault()
-                    actionChange(e.target.value)
+                    //actionChange(e.target.value)
+                    //_temp = data
+                    //_temp.action = _action
+                    let temp;
+                    temp = data;
+                    data.action = e.target.value
+                    dataChange(temp)
+                    console.log(data)
                 }}></input>
                 <p></p>
 
@@ -43,12 +53,18 @@ function _READ(props) {
                     e.preventDefault()
                     _temp = { ...data }
                     _temp.action = _action
+                    dataChange(_temp)
+                    console.log(_temp)
                     _temp.path = _path
+                    dataChange(_temp)
+                    console.log(_temp)
+
                     _temp.requestId = _reqId
                     dataChange(_temp)
+                    console.log(_temp)
+
                 }}>save</button></p>
                 <p><input type="submit" value="Submit"></input></p>
-               
             </form>
         </div>
     )

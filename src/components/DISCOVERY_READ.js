@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 
-function AUTH_READ(props) {
+function DISCOVERY_READ(props) {
+
     let [_action, actionChange] = useState('')
     let [_path, pathChange] = useState('')
-    let [_auth, authChange] = useState('')
+    let [_opType, oTChange] = useState('')
+    let [_opValue, oVChange] = useState('')
+    // let [_opExtra, oXChange] = useState('')
     let [_reqId, reqIdChange] = useState('')
-    let [data, dataChange] = useState({ action: '', path: '', authorization: '', requestId: '' })
+    // let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '', "op-extra": '' }, requestId: '' })
+    let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": ''}, requestId: '' })
     var _temp
-
     return (
-        <div className="auth_read" >
-
+        <div className="auth_read">
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 props.onSubmit(data)
@@ -28,11 +30,23 @@ function AUTH_READ(props) {
                 }}></input>
                 <p></p>
 
-                authorization  :
-                <input className="path" onChange={function (e) {
-                    authChange(e.target.value)
+                filter_(op-type)  :
+                <input className="op-type" onChange={function (e) {
+                    oTChange(e.target.value)
                 }}></input>
                 <p></p>
+
+                filter_(op-value)  :
+                <input className="op-value" onChange={function (e) {
+                    oVChange(e.target.value)
+                }}></input>
+                <p></p>
+
+                {/* filter_(op-extra)  :
+                <input className="op-extra" onChange={function (e) {
+                    oXChange(e.target.value)
+                }}></input>
+                <p></p> */}
 
                 requestId  :
                 <input className="reqId" onChange={function (e) {
@@ -44,7 +58,9 @@ function AUTH_READ(props) {
                     _temp = { ...data }
                     _temp.action = _action
                     _temp.path = _path
-                    _temp.authorization = _auth
+                    _temp.filter["op-type"] = _opType
+                    _temp.filter["op-value"] = _opValue
+                    // _temp.filter["op-extra"] = _opExtra
                     _temp.requestId = _reqId
                     dataChange(_temp)
                 }}>save</button></p>
@@ -54,4 +70,5 @@ function AUTH_READ(props) {
     )
 }
 
-export default AUTH_READ
+
+export default DISCOVERY_READ

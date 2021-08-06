@@ -7,7 +7,7 @@ function HISTORY_READ(props) {
     let [_opType, oTChange] = useState('')
     let [_opValue, oVChange] = useState('')
     let [_reqId, reqIdChange] = useState('')
-    let [data, dataChange] = useState({ action: '', path: '', filter: { opType: '', opValue: '' }, reqId: '' })
+    let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' })
     var _temp
     return (
         <div className="auth_read">
@@ -50,16 +50,13 @@ function HISTORY_READ(props) {
                     _temp = { ...data }
                     _temp.action = _action
                     _temp.path = _path
-                    _temp.filter.opType = _opType
-                    _temp.filter.opValue = _opValue
-                    _temp.reqId = _reqId
+                    _temp.filter["op-type"] = _opType
+                    _temp.filter["op-value"] = _opValue
+                    _temp.requestId = _reqId
                     dataChange(_temp)
                 }}>save</button></p>
                 <p><input type="submit" value="Submit"></input></p>
-
             </form>
-
-
         </div>
     )
 }
