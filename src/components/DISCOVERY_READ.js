@@ -16,7 +16,6 @@ function DISCOVERY_READ(props) {
                 <input className="action" onChange={function (e) {
                     e.preventDefault()
                     data.action = e.target.value
-                    console.log(data)
                 }}></input>
                 <p></p>
 
@@ -24,7 +23,6 @@ function DISCOVERY_READ(props) {
                 <input className="path" onChange={function (e) {
                     e.preventDefault()
                     data.path = e.target.value
-                    console.log(data)
                 }}></input>
                 <p></p>
 
@@ -52,7 +50,6 @@ function DISCOVERY_READ(props) {
                 <input className="reqId" onChange={function (e) {
                     e.preventDefault()
                     data.requestId = e.target.value
-                    console.log(data)
                 }}></input>
                 <p><input type="submit" value="Submit"></input></p>
             </form>

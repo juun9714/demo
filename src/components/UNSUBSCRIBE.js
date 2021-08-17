@@ -13,7 +13,6 @@ function UNSUBSCRIBE(props) {
                 <input name="action" onChange={function (e) {
                     e.preventDefault()
                     data.action = e.target.value
-                    console.log(data)
                 }}></input>
                 <p></p>
 
@@ -21,7 +20,6 @@ function UNSUBSCRIBE(props) {
                 <input name="path" onChange={function (e) {
                     e.preventDefault()
                     data.subscriptionId = e.target.value
-                    console.log(data)
                 }}></input>
                 <p></p>
 
@@ -29,7 +27,6 @@ function UNSUBSCRIBE(props) {
                 <input name="reqId" onChange={function (e) {
                     e.preventDefault()
                     data.requestId = e.target.value
-                    console.log(data)
                 }}></input>
 
                 <p><input type="submit" value="Submit"></input></p>

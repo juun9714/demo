@@ -15,7 +15,6 @@ function AUTH_UPDATE(props) {
                 <input name="action" onChange={function (e) {
                     e.preventDefault()
                     data.action = e.target.value
-                    console.log(data)
                 }}></input>
                 <p></p>
 
@@ -23,7 +22,6 @@ function AUTH_UPDATE(props) {
                 <input name="path" onChange={function (e) {
                     e.preventDefault()
                     data.path = e.target.value
-                    console.log(data)
                 }}></input>
                 <p></p>
 
@@ -31,7 +29,6 @@ function AUTH_UPDATE(props) {
                 <input name="value" onChange={function (e) {
                     e.preventDefault()
                     data.value = e.target.value
-                    console.log(data)
                 }}></input>
                 <p></p>
 
@@ -39,7 +36,6 @@ function AUTH_UPDATE(props) {
                 <input className="path" onChange={function (e) {
                     e.preventDefault()
                     data.authorization = e.target.value
-                    console.log(data)
                 }}></input>
                 <p></p>
 
@@ -47,7 +43,6 @@ function AUTH_UPDATE(props) {
                 <input name="reqId" onChange={function (e) {
                     e.preventDefault()
                     data.requestId = e.target.value
-                    console.log(data)
                 }}></input>
 
                 <p><input type="submit" value="Submit"></input></p>

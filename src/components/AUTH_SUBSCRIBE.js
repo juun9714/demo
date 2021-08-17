@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react'
 
 function AUTH_SUBSCRIBE(props) {
     // let [data, dataChange] = useState({ action: '', path: '', value: '', requestId: '' })
-    var [_action,chAction]=useState("")
-    var [_path,chPath]=useState("")
-    var [_opType,chType]=useState("")
-    var [_opValue,chValue]=useState("")
-    var time_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'time-based', "op-extra": { "period": "" } }, authorization: '', requestId: "" }
-    var range_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'range', "op-extra": { "logic-op": "", "boundary": "" } }, authorization: '', requestId: "" }
-    var change_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'change', "op-extra": { "logic-op": "", "diff": "" } }, authorization: '', requestId: "" }
-    var curve_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'curve-logging', "op-extra": {} }, authorization: '', requestId: "" }
+    var [_action, chAction] = useState("")
+    var [_path, chPath] = useState("")
+    var [_opType, chType] = useState("")
+    var [_opValue, chValue] = useState("")
+    // var time_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'time-based', "op-extra": { "period": "" } }, requestId: "" }
+    var [time_data, chTime_data] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": 'time-based', "op-extra": { "period": "" } }, authorization: '', requestId: "" })
+    // var range_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'range', "op-extra": { "logic-op": "", "boundary": "" } }, requestId: "" }
+    var [range_data, chRange_data] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": 'range', "op-extra": { "logic-op": "", "boundary": "" } }, authorization: '', requestId: "" })
+    // var change_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'change', "op-extra": { "logic-op": "", "diff": "" } }, requestId: "" }
+    var [change_data, chChange_data] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": 'change', "op-extra": { "logic-op": "", "diff": "" } }, authorization: '', requestId: "" })
+    // var curve_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'curve-logging', "op-extra": {} }, requestId: "" }
+    var [curve_data, chCurve_data] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": 'curve-logging', "op-extra": {} }, authorization: '', requestId: "" })
     var holder1 = ""
     var holder2 = ""
     var [h, hChange] = useState({ 'one': '', 'two': '' })
@@ -88,26 +92,26 @@ function AUTH_SUBSCRIBE(props) {
                         if (mode === "time-based") {
                             time_data.action = _action
                             time_data.path = _path
-                            time_data.filter['op-type']=_opType
-                            time_data.filter['op-value']=_opValue
+                            time_data.filter['op-type'] = _opType
+                            time_data.filter['op-value'] = _opValue
                             time_data.filter['op-extra']["period"] = e.target.value
                         } else if (mode === "range") {
                             range_data.action = _action
                             range_data.path = _path
-                            range_data.filter['op-type']=_opType
-                            range_data.filter['op-value']=_opValue
+                            range_data.filter['op-type'] = _opType
+                            range_data.filter['op-value'] = _opValue
                             range_data.filter['op-extra']["logic-op"] = e.target.value
                         } else if (mode === "change") {
                             change_data.action = _action
                             change_data.path = _path
-                            change_data.filter['op-type']=_opType
-                            change_data.filter['op-value']=_opValue
+                            change_data.filter['op-type'] = _opType
+                            change_data.filter['op-value'] = _opValue
                             change_data.filter['op-extra']["logic-op"] = e.target.value
                         } else if (mode === "curve") {
                             curve_data.action = _action
                             curve_data.path = _path
-                            curve_data.filter['op-type']=_opType
-                            curve_data.filter['op-value']=_opValue
+                            curve_data.filter['op-type'] = _opType
+                            curve_data.filter['op-value'] = _opValue
                             curve_data.filter['op-extra']["max-err"] = e.target.value
                         }
                         e.preventDefault()

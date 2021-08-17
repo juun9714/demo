@@ -36,20 +36,22 @@ function App() {
     // mode가 바뀔 때 실행할 것을 지정 === mode가 바뀔 때는 재 렌더링이 안되도록 함 ! === mode가 바뀔 때는 
   }, [mode])
 
-  useEffect(() => {
-    // console.log("MODE CHANGED TO => ",mode)
-    // mode가 바뀔 때 실행할 것을 지정 === mode가 바뀔 때는 재 렌더링이 안되도록 함 ! === mode가 바뀔 때는 
-  }, [req])
 
+  // ws.addEventListener('open', (e) => {
+  //   console.log("connection established")
+  // })
 
-
-  ws.addEventListener('open', (e) => {
+  ws.onopen=()=>[
     console.log("connection established")
-  })
+  ]
 
-  ws.addEventListener('close', (e) => {
+  ws.onclose=()=>{
     console.log("connection closed")
-  })
+  }
+
+  // ws.addEventListener('close', (e) => {
+  //   console.log("connection closed")
+  // })
 
   ws.onmessage=(msg)=>{
     console.log("onmessage : ", msg.data)
@@ -65,9 +67,13 @@ function App() {
   //   resChange(tmp)
   // }) <= add event listener many times
 
-  ws.addEventListener('error', function (e) {
-    console.log('WebSocket error: ', e);
-  });
+  ws.onerror=(error)=>{
+    console.log("Websocket error : ",error)
+  }
+
+  // ws.addEventListener('error', function (e) {
+  //   console.log('WebSocket error: ', e);
+  // });
 
   function retMode() {
     var _content = null
