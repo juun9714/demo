@@ -1,18 +1,8 @@
-import React, { useState, useEffect } from 'react'
-// import Client from './Client';
+// import React, { useState, useEffect } from 'react'
 
 function UPDATE(props) {
-    let [_action, actionChange] = useState('')
-    let [_path, pathChange] = useState('')
-    let [_value, valueChange] = useState('')
-    let [_reqId, reqIdChange] = useState('')
-    let [data, dataChange] = useState({ action: '', path: '', value: '', requestId: '' })
-    var _temp
-
-    useEffect(() => {
-        console.log("useEffect of READ")
-    }, [data])
-
+    // let [data, dataChange] = useState({ action: '', path: '', value: '', requestId: '' })
+    var data={ action: '', path: '', value: '', requestId: '' }
 
     return (
         <div className="read">
@@ -23,39 +13,34 @@ function UPDATE(props) {
                 action  :
                 <input name="action" onChange={function (e) {
                     e.preventDefault()
-                    actionChange(e.target.value)
+                    data.action = e.target.value
+                    console.log(data)
                 }}></input>
                 <p></p>
 
                 path  :
                 <input name="path" onChange={function (e) {
                     e.preventDefault()
-                    pathChange(e.target.value)
+                    data.path = e.target.value
+                    console.log(data)
                 }}></input>
                 <p></p>
 
                 value  :
                 <input name="value" onChange={function (e) {
                     e.preventDefault()
-                    valueChange(e.target.value)
+                    data.value=e.target.value
+                    console.log(data)
                 }}></input>
                 <p></p>
 
                 requestId  :
                 <input name="reqId" onChange={function (e) {
                     e.preventDefault()
-                    reqIdChange(e.target.value)
+                    data.requestId = e.target.value
+                    console.log(data)
                 }}></input>
 
-                <p><button value="Save" onClick={function (e) {
-                    e.preventDefault()
-                    _temp = { ...data }
-                    _temp.action = _action
-                    _temp.path = _path
-                    _temp.value = _value
-                    _temp.requestId = _reqId
-                    dataChange(_temp)
-                }}>save</button></p>
                 <p><input type="submit" value="Submit"></input></p>
 
             </form>

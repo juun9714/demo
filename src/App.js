@@ -8,7 +8,8 @@ import HISTORY_READ from './components/HISTORY_READ';
 import DISCOVERY_READ from './components/DISCOVERY_READ';
 import UPDATE from './components/UPDATE';
 import AUTH_UPDATE from './components/AUTH_UPDATE';
-
+// TODO
+// DISCOVERY_READ => dynamic
 
 let ws = new WebSocket("ws://localhost:3002")
 
@@ -79,13 +80,13 @@ function App() {
         reqChange(data)
       }}></DISCOVERY_READ>
       return _content
-    }else if (mode === "UPDATE") {
+    } else if (mode === "UPDATE") {
       _content = <UPDATE onSubmit={function (data) {
         console.log("received : ", data)
         reqChange(data)
       }}></UPDATE>
       return _content
-    }else if (mode === "AUTH_UPDATE") {
+    } else if (mode === "AUTH_UPDATE") {
       _content = <AUTH_UPDATE onSubmit={function (data) {
         console.log("received : ", data)
         reqChange(data)

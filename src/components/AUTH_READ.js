@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 
 function AUTH_READ(props) {
-    let [data, dataChange] = useState({ action: '', path: '', authorization: '', requestId: '' })
+    // let [data, dataChange] = useState({ action: '', path: '', authorization: '', requestId: '' })
+    var data = { action: '', path: '', authorization: '', requestId: '' }
 
     return (
         <div className="auth_read" >
@@ -13,7 +14,7 @@ function AUTH_READ(props) {
                 action  :
                 <input className="action" onChange={function (e) {
                     e.preventDefault()
-                    data.action=e.target.value
+                    data.action = e.target.value
                     console.log(data)
                 }}></input>
                 <p></p>
@@ -21,7 +22,7 @@ function AUTH_READ(props) {
                 path  :
                 <input className="path" onChange={function (e) {
                     e.preventDefault()
-                    data.path=e.target.value
+                    data.path = e.target.value
                     console.log(data)
                 }}></input>
                 <p></p>
@@ -29,7 +30,7 @@ function AUTH_READ(props) {
                 authorization  :
                 <input className="path" onChange={function (e) {
                     e.preventDefault()
-                    data.authorization=e.target.value
+                    data.authorization = e.target.value
                     console.log(data)
                 }}></input>
                 <p></p>
@@ -37,7 +38,7 @@ function AUTH_READ(props) {
                 requestId  :
                 <input className="reqId" onChange={function (e) {
                     e.preventDefault()
-                    data.requestId=e.target.value
+                    data.requestId = e.target.value
                     console.log(data)
                 }}></input>
 

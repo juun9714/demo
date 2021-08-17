@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react'
-// import Client from './Client';
+// import React, { useState, useEffect } from 'react'
 
 function _READ(props) {
-    let [data, dataChange] = useState({ action: '', path: '', requestId: '' })
-
-    useEffect(() => {
-        console.log("useEffect of READ.js")
-    }, [data])
-
+    // let [data, dataChange] = useState({ action: '', path: '', requestId: '' })
+    var data={ action: '', path: '', requestId: '' }
 
     return (
         <div className="read">
@@ -26,7 +21,7 @@ function _READ(props) {
                 path  :
                 <input name="path" onChange={function (e) {
                     e.preventDefault()
-                    data.path=e.target.value
+                    data.path = e.target.value
                     console.log(data)
                 }}></input>
                 <p></p>
@@ -34,7 +29,7 @@ function _READ(props) {
                 requestId  :
                 <input name="reqId" onChange={function (e) {
                     e.preventDefault()
-                    data.requestId=e.target.value
+                    data.requestId = e.target.value
                     console.log(data)
                 }}></input>
 
