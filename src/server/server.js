@@ -13,8 +13,6 @@ var WSS = new WS.Server(
     }
 )
 
-
-
 WSS.on('connection', (ws, req) => {
     console.log("client connected")
 

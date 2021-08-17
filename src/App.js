@@ -10,7 +10,7 @@ import UPDATE from './components/UPDATE';
 import AUTH_UPDATE from './components/AUTH_UPDATE';
 
 
-let ws = new WebSocket("ws://localhost:3001")
+let ws = new WebSocket("ws://localhost:3002")
 
 function App() {
 
@@ -19,7 +19,7 @@ function App() {
   let [req, reqChange] = useState('111')
 
   useEffect(() => {
-    ws = new WebSocket("ws://localhost:3001")
+    ws = new WebSocket("ws://localhost:3002")
     console.log("useEffect of APP.js")
   }, [])
 
@@ -51,7 +51,7 @@ function App() {
     var _content = null
     if (mode === "READ") {
       _content = <_READ onSubmit={function (data) {
-        console.log("received : ", data)
+        console.log("received by submit btn: ", data)
         reqChange(data)
       }}></_READ>
       return _content
