@@ -12,7 +12,7 @@ function SRCH_READ(props) {
     let mode="single"
 
     return (
-        <div className="auth_read">
+        <div className="srch_read">
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 if (mode === 'single') {
@@ -27,8 +27,6 @@ function SRCH_READ(props) {
                     e.preventDefault()
                     data.action = e.target.value
                     listdata.action = e.target.value
-                    console.log("Data=>",data)
-                    console.log("ListData=>",listdata)
                 }}></input>
                 <p></p>
 
@@ -37,8 +35,6 @@ function SRCH_READ(props) {
                     e.preventDefault()
                     data.path = e.target.value
                     listdata.path = e.target.value
-                    console.log("Data=>",data)
-                    console.log("ListData=>",listdata)
                 }}></input>
                 <p></p>
 
@@ -47,8 +43,6 @@ function SRCH_READ(props) {
                     e.preventDefault()
                     data.filter['op-type'] = e.target.value
                     listdata.filter['op-type'] = e.target.value
-                    console.log("Data=>",data)
-                    console.log("ListData=>",listdata)
                 }}></input>
                 <p></p>
 
@@ -57,9 +51,6 @@ function SRCH_READ(props) {
                     e.preventDefault()
                     val_tmp = e.target.value
                     data.filter['op-value'] = e.target.value
-                    console.log("Data=>",data)
-                    console.log("ListData=>",listdata)
-                    
                 }}></input>
                 <button className="add_value" onClick={function (e) {
                     e.preventDefault()
@@ -68,8 +59,6 @@ function SRCH_READ(props) {
                     }
                     tmp_list.push(val_tmp)
                     listdata.filter['op-value'] = tmp_list
-                    console.log("Data=>",data)
-                    console.log("ListData=>",listdata)
                 }}>add</button>
                 <p></p>
 
@@ -78,8 +67,6 @@ function SRCH_READ(props) {
                     e.preventDefault()
                     data.requestId = e.target.value
                     listdata.requestId = e.target.value
-                    console.log("Data=>",data)
-                    console.log("ListData=>",listdata)
                 }}></input>
                 <p><input type="submit" value="Submit"></input></p>
             </form>

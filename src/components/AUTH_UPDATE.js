@@ -6,7 +6,7 @@ function AUTH_UPDATE(props) {
 
 
     return (
-        <div className="read">
+        <div className="auth_update">
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 props.onSubmit(data)

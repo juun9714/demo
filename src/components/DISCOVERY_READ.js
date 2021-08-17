@@ -6,7 +6,7 @@ function DISCOVERY_READ(props) {
     var data = { action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' }
     // let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' , "op-extra": ''}, requestId: '' })
     return (
-        <div className="auth_read">
+        <div className="discovery_read">
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 props.onSubmit(data)

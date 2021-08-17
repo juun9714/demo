@@ -5,7 +5,7 @@ function HISTORY_READ(props) {
     // let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' })
     var data={ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' }
     return (
-        <div className="auth_read">
+        <div className="history_read">
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 props.onSubmit(data)

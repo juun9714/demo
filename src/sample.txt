@@ -1,4 +1,4 @@
-// search
+// search O
 {
     "action": "get",
     "path": "Vehicle",
@@ -13,15 +13,16 @@
     "requestId": "6578"
 }
 
-//sub
+//sub O
 {
     "action": "subscribe",
     "path": "Vehicle/Cabin/Door/*/*/IsOpen",
     "filter": {"op-type":"capture", "op-value":"time-based", "op-extra":{"period":"6"}},
     "requestId": "6578"
-}
+} 
 
-//sub single path
+
+//sub single path O
 {
     "action": "subscribe",
     "path": "Vehicle/IsMoving",
@@ -29,7 +30,7 @@
     "requestId": "6578"
 }
 
-//sub single path number
+//sub single path number O
 {
     "action": "subscribe",
     "path": "Vehicle/OBD/FuelLevel",
@@ -37,7 +38,7 @@
     "requestId": "6578"
 }
 
-//sub range single path number
+//sub range single path number O
 // ["eq", "ne", "gt", "gte", "lt", "lte"],
 {
     "action": "subscribe",
@@ -46,7 +47,7 @@
     "requestId": "6578"
 }
 
-//sub change
+//sub change O
 // ["eq", "ne", "gt", "gte", "lt", "lte"],
 {
     "action": "subscribe",
@@ -55,7 +56,7 @@
     "requestId": "6578"
 }
 
-//sub change wrong path case 1: no such thing
+//sub change wrong path case 1: no such thing X
 {
     "action": "subscribe",
     "path": "Vehicle/OBD/FuelLevel/1",
@@ -64,7 +65,7 @@
 }
 
 
-//sub change wrong path case 2: cannot compare
+//sub change wrong path case 2: cannot compare O
 {
     "action": "subscribe",
     "path": "Vehicle/IsMoving",
@@ -72,7 +73,7 @@
     "requestId": "6578"
 }
 
-//sub change wrong path case 3: cannot compare
+//sub change wrong path case 3: cannot compare O
 {
     "action": "subscribe",
     "path": "Vehicle/Cabin/Infotainment/HMI/DayNightMode",
@@ -81,7 +82,7 @@
 }
 
 
-//sub change wrong path case 4: diff not number
+//sub change wrong path case 4: diff not number O
 {
     "action": "subscribe",
     "path": "Vehicle/OBD/FuelLevel",

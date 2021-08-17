@@ -5,7 +5,7 @@ function UPDATE(props) {
     var data={ action: '', path: '', value: '', requestId: '' }
 
     return (
-        <div className="read">
+        <div className="update">
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 props.onSubmit(data)

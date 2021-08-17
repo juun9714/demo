@@ -6,7 +6,6 @@ function AUTH_READ(props) {
 
     return (
         <div className="auth_read" >
-
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 props.onSubmit(data)

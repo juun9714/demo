@@ -8,10 +8,15 @@ import HISTORY_READ from './components/HISTORY_READ';
 import DISCOVERY_READ from './components/DISCOVERY_READ';
 import UPDATE from './components/UPDATE';
 import AUTH_UPDATE from './components/AUTH_UPDATE';
+import SUBSCRIBE from './components/SUBSCRIBE';
+import AUTH_SUBSCRIBE from './components/AUTH_SUBSCRIBE';
+
 // TODO
 // DISCOVERY_READ => dynamic
 
 let ws = new WebSocket("ws://localhost:3002")
+//3001 : Secured WebSocket
+//3002 : UnSecured WebSocket
 
 function App() {
 
@@ -92,6 +97,18 @@ function App() {
         reqChange(data)
       }}></AUTH_UPDATE>
       return _content
+    }else if (mode === "SUBSCRIBE") {
+      _content = <SUBSCRIBE onSubmit={function (data) {
+        console.log("received : ", data)
+        reqChange(data)
+      }}></SUBSCRIBE>
+      return _content
+    } else if (mode === "AUTH_SUBSCRIBE") {
+      _content = <AUTH_SUBSCRIBE onSubmit={function (data) {
+        console.log("received : ", data)
+        reqChange(data)
+      }}></AUTH_SUBSCRIBE>
+      return _content
     } else {
       return null
     }
@@ -139,7 +156,6 @@ function App() {
 
       }}>HISTORY_READ</button></p>
 
-
       <p><button onClick={function (e) {
         e.preventDefault()
         if (mode !== "DISCOVERY_READ") {
@@ -168,6 +184,26 @@ function App() {
           modeChange("")
         }
       }}>AUTH_UPDATE</button></p>
+
+      <hr></hr>
+
+      <p><button onClick={function (e) {
+        e.preventDefault()
+        if (mode !== "SUBSCRIBE") {
+          modeChange("SUBSCRIBE")
+        } else {
+          modeChange("")
+        }
+      }}>SUBSCRIBE</button></p>
+
+      <p><button onClick={function (e) {
+        e.preventDefault()
+        if (mode !== "AUTH_SUBSCRIBE") {
+          modeChange("AUTH_SUBSCRIBE")
+        } else {
+          modeChange("")
+        }
+      }}>AUTH_SUBSCRIBE</button></p>
 
 
       {
