@@ -25,6 +25,7 @@ function App() {
   let [res, resChange] = useState([])
   let [req, reqChange] = useState('111')
 
+
   useEffect(() => {
     ws = new WebSocket("ws://localhost:3002")
     console.log("useEffect of APP.js")
@@ -35,6 +36,13 @@ function App() {
     // mode가 바뀔 때 실행할 것을 지정 === mode가 바뀔 때는 재 렌더링이 안되도록 함 ! === mode가 바뀔 때는 
   }, [mode])
 
+  useEffect(() => {
+    // console.log("MODE CHANGED TO => ",mode)
+    // mode가 바뀔 때 실행할 것을 지정 === mode가 바뀔 때는 재 렌더링이 안되도록 함 ! === mode가 바뀔 때는 
+  }, [req])
+
+
+
   ws.addEventListener('open', (e) => {
     console.log("connection established")
   })
@@ -43,12 +51,19 @@ function App() {
     console.log("connection closed")
   })
 
-  ws.addEventListener('message', (msg) => {
+  ws.onmessage=(msg)=>{
     console.log("onmessage : ", msg.data)
     var tmp = [...res]
     tmp.push(msg.data)
     resChange(tmp)
-  })
+
+  }
+  // ws.addEventListener('message', (msg) => {
+  //   console.log("onmessage : ", msg.data)
+  //   var tmp = [...res]
+  //   tmp.push(msg.data)
+  //   resChange(tmp)
+  // }) <= add event listener many times
 
   ws.addEventListener('error', function (e) {
     console.log('WebSocket error: ', e);
@@ -124,6 +139,7 @@ function App() {
 
   return (
     <div className="App">
+      <h3>WEB SOCKET</h3>
       <p><button onClick={function (e) {
         e.preventDefault()
         console.log("WS STATE => ", ws.readyState)
@@ -251,7 +267,12 @@ function App() {
         RESPONSE
         <hr></hr>
         {res.map((one, idx) => {
-          return <p key={idx}><span>{one}</span></p>
+          if(one.includes("error")){
+            return <p style={{color: "red"}} key={idx}><span>{one}</span></p>
+          }else{
+            return <p style={{color: "green"}} key={idx}><span>{one}</span></p>
+          }
+          
         })}
       </div>
     </div>
