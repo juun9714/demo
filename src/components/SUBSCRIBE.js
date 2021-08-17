@@ -6,10 +6,14 @@ function SUBSCRIBE(props) {
     var [_path,chPath]=useState("")
     var [_opType,chType]=useState("")
     var [_opValue,chValue]=useState("")
-    var time_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'time-based', "op-extra": { "period": "" } }, requestId: "" }
-    var range_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'range', "op-extra": { "logic-op": "", "boundary": "" } }, requestId: "" }
-    var change_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'change', "op-extra": { "logic-op": "", "diff": "" } }, requestId: "" }
-    var curve_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'curve-logging', "op-extra": {} }, requestId: "" }
+    // var time_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'time-based', "op-extra": { "period": "" } }, requestId: "" }
+    var [time_data, chTime_data] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": 'time-based', "op-extra": { "period": "" } }, requestId: "" })
+    // var range_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'range', "op-extra": { "logic-op": "", "boundary": "" } }, requestId: "" }
+    var [range_data, chRange_data] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": 'range', "op-extra": { "logic-op": "", "boundary": "" } }, requestId: "" })
+    // var change_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'change', "op-extra": { "logic-op": "", "diff": "" } }, requestId: "" }
+    var [change_data, chChange_data] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": 'change', "op-extra": { "logic-op": "", "diff": "" } }, requestId: "" })
+    // var curve_data = { action: '', path: '', filter: { "op-type": '', "op-value": 'curve-logging', "op-extra": {} }, requestId: "" }
+    var [curve_data, chCurve_data] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": 'curve-logging', "op-extra": {} }, requestId: "" })
     var holder1 = ""
     var holder2 = ""
     var [h, hChange] = useState({ 'one': '', 'two': '' })
@@ -85,6 +89,7 @@ function SUBSCRIBE(props) {
                 filter_(op-extra)
                 <div>
                     <input placeholder={h.one} className="op-extra1" onChange={function (e) {
+                        e.preventDefault()
                         if (mode === "time-based") {
                             time_data.action = _action
                             time_data.path = _path
@@ -110,10 +115,10 @@ function SUBSCRIBE(props) {
                             curve_data.filter['op-value']=_opValue
                             curve_data.filter['op-extra']["max-err"] = e.target.value
                         }
-                        e.preventDefault()
                     }}></input>
                     <p></p>
                     <input placeholder={h.two} className="op-extra2" onChange={function (e) {
+                        e.preventDefault()
                         if (mode === "time-based") {
                             console.log("do not type here")
                         } else if (mode === "range") {
@@ -123,7 +128,6 @@ function SUBSCRIBE(props) {
                         } else if (mode === "curve") {
                             curve_data.filter['op-extra']["buf-size"] = e.target.value
                         }
-                        e.preventDefault()
                     }}></input>
                 </div>
                 <p></p>

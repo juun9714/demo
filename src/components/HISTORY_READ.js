@@ -1,9 +1,9 @@
-// import React, { useState } from 'react'
+import React, { useState } from 'react'
 
 function HISTORY_READ(props) {
 
-    // let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' })
-    var data={ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' }
+    let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' })
+    // var data={ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' }
     return (
         <div className="history_read">
             <form method="post" onSubmit={function (e) {

@@ -1,8 +1,8 @@
-// import React, { useState } from 'react'
+import React, { useState } from 'react'
 
 function AUTH_READ(props) {
-    // let [data, dataChange] = useState({ action: '', path: '', authorization: '', requestId: '' })
-    var data = { action: '', path: '', authorization: '', requestId: '' }
+    let [data, dataChange] = useState({ action: '', path: '', authorization: '', requestId: '' })
+    // var data = { action: '', path: '', authorization: '', requestId: '' }
 
     return (
         <div className="auth_read" >

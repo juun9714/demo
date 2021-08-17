@@ -1,8 +1,8 @@
-// import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function UPDATE(props) {
-    // let [data, dataChange] = useState({ action: '', path: '', value: '', requestId: '' })
-    var data={ action: '', path: '', value: '', requestId: '' }
+    let [data, dataChange] = useState({ action: '', path: '', value: '', requestId: '' })
+    // var data={ action: '', path: '', value: '', requestId: '' }
 
     return (
         <div className="update">

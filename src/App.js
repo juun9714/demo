@@ -10,6 +10,7 @@ import UPDATE from './components/UPDATE';
 import AUTH_UPDATE from './components/AUTH_UPDATE';
 import SUBSCRIBE from './components/SUBSCRIBE';
 import AUTH_SUBSCRIBE from './components/AUTH_SUBSCRIBE';
+import UNSUBSCRIBE from './components/UNSUBSCRIBE';
 
 // TODO
 // DISCOVERY_READ => dynamic
@@ -97,7 +98,7 @@ function App() {
         reqChange(data)
       }}></AUTH_UPDATE>
       return _content
-    }else if (mode === "SUBSCRIBE") {
+    } else if (mode === "SUBSCRIBE") {
       _content = <SUBSCRIBE onSubmit={function (data) {
         console.log("received : ", data)
         reqChange(data)
@@ -108,6 +109,12 @@ function App() {
         console.log("received : ", data)
         reqChange(data)
       }}></AUTH_SUBSCRIBE>
+      return _content
+    } else if (mode === "UNSUBSCRIBE") {
+      _content = <UNSUBSCRIBE onSubmit={function (data) {
+        console.log("received : ", data)
+        reqChange(data)
+      }}></UNSUBSCRIBE>
       return _content
     } else {
       return null
@@ -204,6 +211,16 @@ function App() {
           modeChange("")
         }
       }}>AUTH_SUBSCRIBE</button></p>
+
+      <p><button onClick={function (e) {
+        e.preventDefault()
+        if (mode !== "UNSUBSCRIBE") {
+          modeChange("UNSUBSCRIBE")
+        } else {
+          modeChange("")
+        }
+      }}>UNSUBSCRIBE</button></p>
+      <hr></hr>
 
 
       {

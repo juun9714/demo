@@ -6,7 +6,7 @@
     "requestId": "5688"
 }
 
-// unsub
+// unsub O
 {
     "action": "unsubscribe",
     "subscriptionId": "76ab3308-d9b5-4bc5-ade8-2c114ab478e6",
@@ -90,7 +90,7 @@
     "requestId": "6578"
 }
 
-//sub curve-logging:
+//sub curve-logging: O
 {
     "action": "subscribe",
     "path": "Vehicle/OBD/FuelLevel",

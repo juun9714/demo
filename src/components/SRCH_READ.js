@@ -1,14 +1,14 @@
-// import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function SRCH_READ(props) {
 
-    // let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' })
-    var data = { action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' }
-    // let [listdata, listdataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": [] }, requestId: '' })
-    var listdata = { action: '', path: '', filter: { "op-type": '', "op-value": [] }, requestId: '' }
+    let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' })
+    // var data = { action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' }
+    let [listdata, listdataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": [] }, requestId: '' })
+    // var listdata = { action: '', path: '', filter: { "op-type": '', "op-value": [] }, requestId: '' }
     let val_tmp
-    // let [tmp_list, tmpChange] = useState([])
-    var tmp_list=[]
+    let [tmp_list, tmpChange] = useState([])
+    // var tmp_list=[]
     let mode="single"
 
     return (

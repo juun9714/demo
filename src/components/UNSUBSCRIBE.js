@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
-function AUTH_UPDATE(props) {
-    let [data, dataChange] = useState({ action: '', path: '', value: '', authorization: '', requestId: '' })
-    // var data = { action: '', path: '', value: '', authorization: '', requestId: '' }
-
-
+function UNSUBSCRIBE(props) {
+    // var data = { action: '', subscriptionId: '', requestId: '' }
+    let [data,chData] = useState({ action: '', subscriptionId: '', requestId: '' })
     return (
-        <div className="auth_update">
+        <div className="unsubscribe">
             <form method="post" onSubmit={function (e) {
                 e.preventDefault()
                 props.onSubmit(data)
@@ -19,26 +17,10 @@ function AUTH_UPDATE(props) {
                 }}></input>
                 <p></p>
 
-                path  :
+                subscriptionId  :
                 <input name="path" onChange={function (e) {
                     e.preventDefault()
-                    data.path = e.target.value
-                    console.log(data)
-                }}></input>
-                <p></p>
-
-                value  :
-                <input name="value" onChange={function (e) {
-                    e.preventDefault()
-                    data.value = e.target.value
-                    console.log(data)
-                }}></input>
-                <p></p>
-
-                authorization  :
-                <input className="path" onChange={function (e) {
-                    e.preventDefault()
-                    data.authorization = e.target.value
+                    data.subscriptionId = e.target.value
                     console.log(data)
                 }}></input>
                 <p></p>
@@ -51,11 +33,10 @@ function AUTH_UPDATE(props) {
                 }}></input>
 
                 <p><input type="submit" value="Submit"></input></p>
-
             </form>
         </div>
     )
+
 }
 
-
-export default AUTH_UPDATE
+export default UNSUBSCRIBE

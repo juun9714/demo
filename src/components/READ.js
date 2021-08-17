@@ -1,8 +1,9 @@
-// import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function _READ(props) {
     // let [data, dataChange] = useState({ action: '', path: '', requestId: '' })
-    var data={ action: '', path: '', requestId: '' }
+    // var data={ action: '', path: '', requestId: '' }
+    var [data, sCData]=useState({ action: '', path: '', requestId: '' })
 
     return (
         <div className="read">
