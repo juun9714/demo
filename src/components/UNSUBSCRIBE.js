@@ -1,8 +1,10 @@
+/* eslint-disable*/
 import React, { useState, useEffect } from 'react'
 
 function UNSUBSCRIBE(props) {
     // var data = { action: '', subscriptionId: '', requestId: '' }
     let [data,chData] = useState({ action: '', subscriptionId: '', requestId: '' })
+    
     return (
         <div className="unsubscribe">
             <form method="post" onSubmit={function (e) {

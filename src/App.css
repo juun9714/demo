@@ -1,6 +1,5 @@
 .App {
   text-align: left;
-  padding:30px;
   font-family: 'Gowun Batang', serif;
 }
 
@@ -54,5 +53,14 @@
 
 .REQ_CLS{
   background-color:peachpuff;
+  padding:10px;
+}
+
+body{
+  margin:5%;
+}
+
+.btns{
+  background-color:papayawhip;
   padding:10px;
 }
