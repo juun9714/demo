@@ -35,9 +35,7 @@ function App() {
             }
           }}>rest API</button>
         </p>
-
       </div>
-
       <hr></hr>
 
       {
@@ -54,10 +52,9 @@ function App() {
 
       {
         mode === ""
-          ? <div>select the way you request</div>
+          ? <div>Select the way you request</div>
           : null
       }
-
     </div>
   )
 }
