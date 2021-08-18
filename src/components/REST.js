@@ -10,8 +10,9 @@ import AUTH_UPDATE from './AUTH_UPDATE';
 
 function REST() {
     let [mode, modeChange] = useState("")
-    let [res, resChange] = useState([])
-    let [req, reqChange] = useState('111')
+    let [res, resChange] = useState("")
+    let [status, stChange] = useState("")
+    let [token, tkChange] = useState("")
 
 
     useEffect(() => {
@@ -22,13 +23,15 @@ function REST() {
     function getAccessToken() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
+            console.log(this.readyState, this.status)
             if (this.readyState == 4 && this.status == 200) {
                 var response_data = JSON.parse(this.response);
-                access_token = response_data['access']
-                var header = getResponseHeaderMap(this)
-                console.log(this)
-                console.log(header)
-
+                // access_token = response_data['access']
+                token = response_data['access']
+                console.log(token)
+                // var header = getResponseHeaderMap(this)
+                // console.log(this)
+                // console.log(header)
             }
         };
         // REST API 
@@ -53,6 +56,9 @@ function REST() {
                 // var header = getResponseHeaderMap(this)
                 var status_msg = "HTTP/1.1 " + this.status + " " + this.statusText
                 var success = true
+                stChange(status_msg)
+                resChange(JSON.stringify(response_data))
+                console.log("status MSG", status_msg)
                 console.log("response_data", response_data)
                 // var tmp = [...res]
                 // tmp.push(response_data)
@@ -76,6 +82,9 @@ function REST() {
                 //         helper_terminate_failure("Get method failed");
                 //     }
                 // })();
+            } else {
+                console.log(this.response)
+                resChange(this.response)
             }
         };
         // REST API 
@@ -90,13 +99,13 @@ function REST() {
             params = "";
         } else if (mode === "AUTH_READ") {
             params = "";
-            header['Authorization'] = 'Bearer ' + access_token
+            header['Authorization'] = 'Bearer ' + token
         } else if (mode === "SRCH_READ") {
-            params = "filter={\"op-type\":\"paths\", \"op-value\":\"" + JSON.stringify(data.filter["op-value"]) + "\"}";
+            params = "filter={\"op-type\":\"paths\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
         } else if (mode === "HISTORY_READ") {
-            params = "filter={\"op-type\":\"history\", \"op-value\":\"" + JSON.stringify(data.filter["op-value"]) + "\"}";
+            params = "filter={\"op-type\":\"history\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
         } else if (mode === "DISCOVERY_READ") {
-            params = "filter={\"op-type\":\"metadata\", \"op-value\":\"" + JSON.stringify(data.filter["op-value"]) + "\"}";
+            params = "filter={\"op-type\":\"metadata\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
         } else if (mode === "UPDATE") {
             request = "POST"
         } else if (mode === "AUTH_UPDATE") {
@@ -135,45 +144,45 @@ function REST() {
             _content = <_READ onSubmit={function (data) {
                 console.log("received by submit btn: ", data)
                 executeRestAPI(data)
-                reqChange(data)
             }}></_READ>
             return _content
         } else if (mode === "AUTH_READ") {
             _content = <AUTH_READ onSubmit={function (data) {
                 console.log("received : ", data)
                 getAccessToken()
-                reqChange(data)
+                console.log("token=>", token)
+                executeRestAPI(data)
             }}></AUTH_READ>
             return _content
         } else if (mode === "SRCH_READ") {
             _content = <SRCH_READ onSubmit={function (data) {
                 console.log("received : ", data)
-                reqChange(data)
+                executeRestAPI(data)
             }}></SRCH_READ>
             return _content
         } else if (mode === "HISTORY_READ") {
             _content = <HISTORY_READ onSubmit={function (data) {
                 console.log("received : ", data)
-                reqChange(data)
+                executeRestAPI(data)
             }}></HISTORY_READ>
             return _content
         } else if (mode === "DISCOVERY_READ") {
             _content = <DISCOVERY_READ onSubmit={function (data) {
                 console.log("received : ", data)
-                reqChange(data)
+                executeRestAPI(data)
             }}></DISCOVERY_READ>
             return _content
         } else if (mode === "UPDATE") {
             _content = <UPDATE onSubmit={function (data) {
                 console.log("received : ", data)
-                reqChange(data)
+                executeRestAPI(data)
             }}></UPDATE>
             return _content
         } else if (mode === "AUTH_UPDATE") {
             _content = <AUTH_UPDATE onSubmit={function (data) {
                 console.log("received : ", data)
                 getAccessToken()
-                reqChange(data)
+                executeRestAPI(data)
             }}></AUTH_UPDATE>
             return _content
         } else {
@@ -254,42 +263,23 @@ function REST() {
 
             <hr></hr>
 
-
             {
                 mode === ""
                     ? null
                     : <div className="retMode">{retMode()}</div>
             }
 
-            <div className="REQ_CLS">
-                <p>
-                    < button onClick={(e) => {
-                        e.preventDefault()
-                        console.log("CLIENT : make request => ", req)
-                        ws.send(JSON.stringify(req))
-                    }}>Websocket Request</button >
-                </p>
-
-                <p>
-                    < button onClick={(e) => {
-                        e.preventDefault()
-                        ws.close()
-                        console.log("Connection break")
-                    }}>WebSocket Close</button >
-                </p>
-            </div>
-
             <div className="response">
                 RESPONSE
                 <hr></hr>
-                {res.map((one, idx) => {
-                    if (one.includes("error")) {
-                        return <p style={{ color: "red" }} key={idx}><span>{one}</span></p>
-                    } else {
-                        return <p style={{ color: "green" }} key={idx}><span>{one}</span></p>
+                <div>{status}</div>
+                <div>
+                    {
+                        res.includes("Error Code")
+                        ? <div style={{ color: "red" }}>{res}</div>
+                        : <div style={{ color: "green" }}>{res}</div>
                     }
-
-                })}
+                </div>
             </div>
         </div>
     );

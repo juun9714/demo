@@ -35,7 +35,8 @@ function WS() {
       console.log("connection established")
     ]
   
-    ws.onclose=()=>{
+    ws.onclose=(e)=>{
+      console.log(e)
       console.log("connection closed")
     }
   
