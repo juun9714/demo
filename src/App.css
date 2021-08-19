@@ -45,7 +45,7 @@
   margin-bottom: 20px;
 }
 
-.response{
+.response, .request{
   margin-top:20px;
   padding:30px;
   background-color: lightgray;

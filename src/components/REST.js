@@ -8,17 +8,34 @@ import DISCOVERY_READ from './DISCOVERY_READ';
 import UPDATE from './UPDATE';
 import AUTH_UPDATE from './AUTH_UPDATE';
 
+
 function REST() {
     let [mode, modeChange] = useState("")
     let [res, resChange] = useState("")
+    let [req, reqChange] = useState([])
     let [status, stChange] = useState("")
     let [token, tkChange] = useState("")
+    let [header_, hdChange] = useState([])
+    let [result, rsChange] = useState("")
 
 
     useEffect(() => {
         // console.log("MODE CHANGED TO => ",mode)
         // mode가 바뀔 때 실행할 것을 지정 === mode가 바뀔 때는 재 렌더링이 안되도록 함 ! === mode가 바뀔 때는 
     }, [mode])
+
+
+    function getResponseHeaderMap(xhr) {
+        const headers = {};
+        xhr.getAllResponseHeaders()
+            .trim()
+            .split(/[\r\n]+/)
+            .map(value => value.split(/: /))
+            .forEach(keyValue => {
+                headers[keyValue[0].trim()] = keyValue[1].trim();
+            });
+        return headers;
+    }
 
     function getAccessToken() {
         var xhttp = new XMLHttpRequest();
@@ -28,10 +45,15 @@ function REST() {
                 var response_data = JSON.parse(this.response);
                 // access_token = response_data['access']
                 token = response_data['access']
-                console.log(token)
-                // var header = getResponseHeaderMap(this)
-                // console.log(this)
-                // console.log(header)
+                var header = getResponseHeaderMap(this)
+                //header
+                var header = getResponseHeaderMap(this)
+                var tmp_hd = []
+                for (var key in header) {
+                    tmp_hd.push(key + " : " + header[key])
+                }
+                hdChange(tmp_hd)
+                //header
             }
         };
         // REST API 
@@ -53,41 +75,37 @@ function REST() {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var response_data = JSON.parse(this.response);
-                // var header = getResponseHeaderMap(this)
-                var status_msg = "HTTP/1.1 " + this.status + " " + this.statusText
-                var success = true
-                stChange(status_msg)
-                resChange(JSON.stringify(response_data))
-                console.log("status MSG", status_msg)
-                console.log("response_data", response_data)
-                // var tmp = [...res]
-                // tmp.push(response_data)
-                // resChange(tmp)
+                //header
+                var header = getResponseHeaderMap(this)
+                var tmp_hd = []
+                for (var key in header) {
+                    tmp_hd.push(key + " : " + header[key])
+                }
+                hdChange(tmp_hd)
+                //header
 
-                // t.step_func(function () {
-                //     for (var temp_response_data of response_data.data) {
-                //         if (isGetSuccessResponseForHTTPS(temp_response_data) === false) {
-                //             success = false
-                //         }
-                //     }
-                //     if (success) {
-                //         //assert_true(true, "Get response received. value = " + response_data.data.dp.value);
-                //         helper_terminate_success_for_https("Get response received. ", status_msg, header, response_data);
-                //         //CHECK
-                //         console.log(response_data)
-                //         var tmp = [...res]
-                //         tmp.push(response_data)
-                //         resChange(tmp)
-                //     } else {
-                //         helper_terminate_failure("Get method failed");
-                //     }
-                // })();
-            } else {
-                console.log(this.response)
+                var status_msg = "HTTP/1.1 " + this.status + " " + this.statusText
+                if (JSON.stringify(response_data).includes("error")) {
+                    //status가 200인데 실제로 error인 상황
+                    status_msg = "HTTP/1.1 " + response_data.data.error["Error Code"]
+                    stChange(status_msg)
+                    resChange(this.response)
+                    rsChange("FAILURE")
+                } else {
+                    stChange(status_msg)
+                    resChange(this.response)
+                    rsChange("SUCCESS: GET response received")
+                }
+            } else if (this.readyState == 4 && this.status == 404){
+                //status 자체가 404인 경우 
+                var status_msg = "HTTP/1.1 " + this.status + " " + this.statusText
+                stChange(status_msg)
                 resChange(this.response)
+                rsChange("FAILURE")
             }
         };
         // REST API 
+        let dict_data = {}
         let request = "GET"
         let protocol = "http"
         let host = "127.0.0.1:8000"
@@ -114,22 +132,39 @@ function REST() {
 
 
         if (params.length > 0) {
-            console.log(params.length)
+            // console.log(params.length)
             url = url + "?" + params
             path = path + "?" + params
         }
+        var tmp = []
+        tmp.push(request + " /" + path + " HTTP/1.1")
+        tmp.push(host)
 
         if (request === "GET") {
-            // addLogRequestMessageForHTTPS(request + " /" + path + " HTTP/1.1", host, header)
+            //make REQ
+            if (mode === "AUTH_READ") {
+                for (var key in header) {
+                    tmp.push(key + " : " + header.Authorization)
+                }
+            }
+            reqChange(tmp)
+            //make REQ
             xhttp.open(request, url, true);
             xhttp.send();
 
         } else if (request === "POST") {
             let data = new FormData();
             data.append('value', 'sport');
-            let dict_data = { 'value': 'sport' }
-
-            // addLogRequestMessageForHTTPS(request + " /" + path + " HTTP/1.1", host, header, dict_data)
+            dict_data = { 'value': 'sport' }
+            //make REQ
+            if (mode === "AUTH_UPDATE") {
+                for (var key in header) {
+                    tmp.push(key + " : " + header.Authorization)
+                }
+            }
+            tmp.push(JSON.stringify(dict_data))
+            reqChange(tmp)
+            //make REQ
             xhttp.open(request, url, true);
             xhttp.send(data);
         }
@@ -269,15 +304,42 @@ function REST() {
                     : <div className="retMode">{retMode()}</div>
             }
 
+            <div className="request">
+                REQUEST
+                <hr></hr>
+                {
+                    req.map((i) => {
+                        return <div key={i}>{i}</div>
+                    })
+                }
+            </div>
+
             <div className="response">
                 RESPONSE
                 <hr></hr>
-                <div>{status}</div>
                 <div>
                     {
-                        res.includes("Error Code")
-                        ? <div style={{ color: "red" }}>{res}</div>
-                        : <div style={{ color: "green" }}>{res}</div>
+                        status.includes("404")
+                            ? <div style={{ backgroundColor: "red", fontSize: "20px" }}>
+                                <h2>{result}</h2>
+                                <div>{status}</div>
+                                {
+                                    header_.map((i) => {
+                                        return <div key={i}>{i}</div>
+                                    })
+                                }
+                                <div>{res}</div>
+                            </div>
+                            : <div style={{ backgroundColor: "lightgreen", fontSize: "20px" }}>
+                                <h2>{result}</h2>
+                                <div>{status}</div>
+                                {
+                                    header_.map((i) => {
+                                        return <div key={i}>{i}</div>
+                                    })
+                                }
+                                <div>{res}</div>
+                            </div>
                     }
                 </div>
             </div>

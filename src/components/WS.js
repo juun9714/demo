@@ -30,6 +30,10 @@ function WS() {
       // mode가 바뀔 때 실행할 것을 지정 === mode가 바뀔 때는 재 렌더링이 안되도록 함 ! === mode가 바뀔 때는 
     }, [mode])
   
+    useEffect(() => {
+      // console.log("RES CHANGED TO => ",res)
+    }, [res])
+  
   
     ws.onopen=()=>[
       console.log("connection established")
@@ -251,11 +255,10 @@ function WS() {
           <hr></hr>
           {res.map((one, idx) => {
             if(one.includes("error")){
-              return <p style={{color: "red"}} key={idx}><span>{one}</span></p>
+              return <p style={{backgroundColor: "red"}} key={idx}><span>{one}</span></p>
             }else{
-              return <p style={{color: "green"}} key={idx}><span>{one}</span></p>
+              return <p style={{backgroundColor: "lightgreen"}} key={idx}><span>{one}</span></p>
             }
-            
           })}
         </div>
       </div>
