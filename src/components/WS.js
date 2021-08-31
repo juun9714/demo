@@ -72,8 +72,8 @@ function WS() {
       } else if (mode === "SRCH_READ") {
         _content = <SRCH_READ onSubmit={function (data) {
           console.log("received : ", data)
-          console.log("filter",data.filter)
-          console.log("filter",data.filter["op-value"])
+          // console.log("filter",data.filter)
+          // console.log("filter",data.filter["op-value"])
           reqChange(data)
         }}></SRCH_READ>
         return _content

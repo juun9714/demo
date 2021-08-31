@@ -87,17 +87,20 @@ function REST() {
                 var status_msg = "HTTP/1.1 " + this.status + " " + this.statusText
                 if (JSON.stringify(response_data).includes("error")) {
                     //status가 200인데 실제로 error인 상황
+                    console.log("status(200 expected) : ",this.status,", but error")
                     status_msg = "HTTP/1.1 " + response_data.data.error["Error Code"]
                     stChange(status_msg)
                     resChange(this.response)
                     rsChange("FAILURE")
                 } else {
+                    console.log("JUST SUCCESS")
                     stChange(status_msg)
                     resChange(this.response)
                     rsChange("SUCCESS: GET response received")
                 }
             } else if (this.readyState == 4 && this.status == 404){
                 //status 자체가 404인 경우 
+                console.log("status(404 expected) : ",this.status,", error")
                 var status_msg = "HTTP/1.1 " + this.status + " " + this.statusText
                 stChange(status_msg)
                 resChange(this.response)
@@ -119,11 +122,11 @@ function REST() {
             params = "";
             header['Authorization'] = 'Bearer ' + token
         } else if (mode === "SRCH_READ") {
-            params = "filter={\"op-type\":\"paths\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
+            params = "filter={\"op-type\":\""+data.filter["op-type"]+"\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
         } else if (mode === "HISTORY_READ") {
-            params = "filter={\"op-type\":\"history\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
+            params = "filter={\"op-type\":\""+data.filter["op-type"]+"\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
         } else if (mode === "DISCOVERY_READ") {
-            params = "filter={\"op-type\":\"metadata\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
+            params = "filter={\"op-type\":\""+data.filter["op-type"]+"\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
         } else if (mode === "UPDATE") {
             request = "POST"
         } else if (mode === "AUTH_UPDATE") {
@@ -132,7 +135,6 @@ function REST() {
 
 
         if (params.length > 0) {
-            // console.log(params.length)
             url = url + "?" + params
             path = path + "?" + params
         }
