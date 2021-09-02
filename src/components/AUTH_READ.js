@@ -26,7 +26,7 @@ function AUTH_READ(props) {
                 <p></p>
 
                 authorization  :
-                <input className="path" onChange={function (e) {
+                <input className="auth" onChange={function (e) {
                     e.preventDefault()
                     data.authorization = e.target.value
                 }}></input>

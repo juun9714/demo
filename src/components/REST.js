@@ -40,7 +40,6 @@ function REST() {
     function getAccessToken() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            console.log(this.readyState, this.status)
             if (this.readyState == 4 && this.status == 200) {
                 var response_data = JSON.parse(this.response);
                 // access_token = response_data['access']
@@ -87,20 +86,18 @@ function REST() {
                 var status_msg = "HTTP/1.1 " + this.status + " " + this.statusText
                 if (JSON.stringify(response_data).includes("error")) {
                     //status가 200인데 실제로 error인 상황
-                    console.log("status(200 expected) : ",this.status,", but error")
                     status_msg = "HTTP/1.1 " + response_data.data.error["Error Code"]
                     stChange(status_msg)
                     resChange(this.response)
                     rsChange("FAILURE")
                 } else {
-                    console.log("JUST SUCCESS")
                     stChange(status_msg)
                     resChange(this.response)
                     rsChange("SUCCESS: GET response received")
                 }
-            } else if (this.readyState == 4 && this.status == 404){
+            } else if (this.readyState == 4) {
                 //status 자체가 404인 경우 
-                console.log("status(404 expected) : ",this.status,", error")
+                console.log("status(404 expected) : ", this.status, ", error")
                 var status_msg = "HTTP/1.1 " + this.status + " " + this.statusText
                 stChange(status_msg)
                 resChange(this.response)
@@ -115,24 +112,23 @@ function REST() {
         let path = data.path
         let url = protocol + "://" + host + "/" + path
         let header = {}
+        header['Authorization'] = 'Bearer ' + data.authorization
         let params = ""
         if (mode === "READ") {
             params = "";
         } else if (mode === "AUTH_READ") {
             params = "";
-            header['Authorization'] = 'Bearer ' + token
         } else if (mode === "SRCH_READ") {
-            params = "filter={\"op-type\":\""+data.filter["op-type"]+"\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
+            params = "filter={\"op-type\":\"" + data.filter["op-type"] + "\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
         } else if (mode === "HISTORY_READ") {
-            params = "filter={\"op-type\":\""+data.filter["op-type"]+"\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
+            params = "filter={\"op-type\":\"" + data.filter["op-type"] + "\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
         } else if (mode === "DISCOVERY_READ") {
-            params = "filter={\"op-type\":\""+data.filter["op-type"]+"\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
+            params = "filter={\"op-type\":\"" + data.filter["op-type"] + "\", \"op-value\":\"" + data.filter["op-value"] + "\"}";
         } else if (mode === "UPDATE") {
             request = "POST"
         } else if (mode === "AUTH_UPDATE") {
             request = "POST"
         }
-
 
         if (params.length > 0) {
             url = url + "?" + params
@@ -144,14 +140,17 @@ function REST() {
 
         if (request === "GET") {
             //make REQ
-            if (mode === "AUTH_READ") {
-                for (var key in header) {
-                    tmp.push(key + " : " + header.Authorization)
-                }
-            }
-            reqChange(tmp)
+            // if (mode === "AUTH_READ") {
+            //     for (var key in header) {
+            //         tmp.push(key + " : " + header.Authorization)
+            //     }
+            // }
+            // reqChange(tmp)
             //make REQ
             xhttp.open(request, url, true);
+            for (let key in header) {
+                xhttp.setRequestHeader(key, header[key]);
+            }
             xhttp.send();
 
         } else if (request === "POST") {
@@ -159,21 +158,21 @@ function REST() {
             data.append('value', 'sport');
             dict_data = { 'value': 'sport' }
             //make REQ
-            if (mode === "AUTH_UPDATE") {
-                for (var key in header) {
-                    tmp.push(key + " : " + header.Authorization)
-                }
-            }
+            // if (mode === "AUTH_UPDATE") {
+            //     for (var key in header) {
+            //         tmp.push(key + " : " + header.Authorization)
+            //     }
+            // }
             tmp.push(JSON.stringify(dict_data))
             reqChange(tmp)
             //make REQ
             xhttp.open(request, url, true);
+            for (let key in header) {
+                xhttp.setRequestHeader(key, header[key]);
+            }
             xhttp.send(data);
         }
     }
-
-    // var t = async_test("Get success case");
-
 
     function retMode() {
         var _content = null
@@ -186,8 +185,6 @@ function REST() {
         } else if (mode === "AUTH_READ") {
             _content = <AUTH_READ onSubmit={function (data) {
                 console.log("received : ", data)
-                getAccessToken()
-                console.log("token=>", token)
                 executeRestAPI(data)
             }}></AUTH_READ>
             return _content
@@ -218,10 +215,15 @@ function REST() {
         } else if (mode === "AUTH_UPDATE") {
             _content = <AUTH_UPDATE onSubmit={function (data) {
                 console.log("received : ", data)
-                getAccessToken()
                 executeRestAPI(data)
             }}></AUTH_UPDATE>
             return _content
+        } else if (mode === "TOKEN") {
+            getAccessToken()
+            rsChange("TOKEN")
+            resChange(token)
+            modeChange("")
+            console.log(token)
         } else {
             return null
         }
@@ -233,12 +235,21 @@ function REST() {
             <h3>REST API</h3>
             <p><button onClick={function (e) {
                 e.preventDefault()
+                if (mode !== "TOKEN") {
+                    modeChange("TOKEN")
+                } else {
+                    modeChange("")
+                }
+            }}>GET TOKEN</button></p>
+
+            {/* <p><button onClick={function (e) {
+                e.preventDefault()
                 if (mode !== "READ") {
                     modeChange("READ")
                 } else {
                     modeChange("")
                 }
-            }}>READ</button></p>
+            }}>READ</button></p> */}
 
             <p><button onClick={function (e) {
                 e.preventDefault()
@@ -247,7 +258,7 @@ function REST() {
                 } else {
                     modeChange("")
                 }
-            }}>AUTH_READ</button></p>
+            }}>READ</button></p>
 
             <p><button onClick={function (e) {
                 e.preventDefault()
@@ -280,14 +291,14 @@ function REST() {
 
             <hr></hr>
 
-            <p><button onClick={function (e) {
+            {/* <p><button onClick={function (e) {
                 e.preventDefault()
                 if (mode !== "UPDATE") {
                     modeChange("UPDATE")
                 } else {
                     modeChange("")
                 }
-            }}>UPDATE</button></p>
+            }}>UPDATE</button></p> */}
 
             <p><button onClick={function (e) {
                 e.preventDefault()
@@ -296,7 +307,7 @@ function REST() {
                 } else {
                     modeChange("")
                 }
-            }}>AUTH_UPDATE</button></p>
+            }}>UPDATE</button></p>
 
             <hr></hr>
 
@@ -321,7 +332,8 @@ function REST() {
                 <hr></hr>
                 <div>
                     {
-                        status.includes("404")
+                        // (res.includes("error"))||(res.includes("token_not_valid"))||(res.includes("throttled"))
+                        result==="FAILURE"
                             ? <div style={{ backgroundColor: "red", fontSize: "20px" }}>
                                 <h2>{result}</h2>
                                 <div>{status}</div>
