@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 
 function SRCH_READ(props) {
 
-    let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' })
+    let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, authorization: '', requestId: '' })
     // var data = { action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' }
-    let [listdata, listdataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": [] }, requestId: '' })
+    let [listdata, listdataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": [] }, authorization: '', requestId: '' })
     // var listdata = { action: '', path: '', filter: { "op-type": '', "op-value": [] }, requestId: '' }
     let val_tmp
     let [tmp_list, tmpChange] = useState([])
@@ -61,6 +61,14 @@ function SRCH_READ(props) {
                     tmp_list.push(val_tmp)
                     listdata.filter['op-value'] = tmp_list
                 }}>add</button>
+                <p></p>
+
+                authorization  :
+                <input className="auth" onChange={function (e) {
+                    e.preventDefault()
+                    data.authorization = e.target.value
+                    listdata.authorization = e.target.value
+                }}></input>
                 <p></p>
 
                 requestId  :

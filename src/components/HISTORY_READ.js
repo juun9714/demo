@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 function HISTORY_READ(props) {
 
-    let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' })
+    let [data, dataChange] = useState({ action: '', path: '', filter: { "op-type": '', "op-value": '' }, authorization: '', requestId: '' })
     // var data={ action: '', path: '', filter: { "op-type": '', "op-value": '' }, requestId: '' }
     return (
         <div className="history_read">
@@ -37,6 +37,13 @@ function HISTORY_READ(props) {
                 <input className="op-value" onChange={function (e) {
                     e.preventDefault()
                     data.filter['op-value'] = e.target.value
+                }}></input>
+                <p></p>
+
+                authorization  :
+                <input className="auth" onChange={function (e) {
+                    e.preventDefault()
+                    data.authorization = e.target.value
                 }}></input>
                 <p></p>
 
