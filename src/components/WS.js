@@ -56,18 +56,6 @@ function WS() {
     console.log("Websocket error : ", error)
   }
 
-  function getResponseHeaderMap(xhr) {
-    const headers = {};
-    xhr.getAllResponseHeaders()
-      .trim()
-      .split(/[\r\n]+/)
-      .map(value => value.split(/: /))
-      .forEach(keyValue => {
-        headers[keyValue[0].trim()] = keyValue[1].trim();
-      });
-    return headers;
-  }
-
   function getAccessToken() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
