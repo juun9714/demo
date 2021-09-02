@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 
 function UNSUBSCRIBE(props) {
     // var data = { action: '', subscriptionId: '', requestId: '' }
-    let [data,chData] = useState({ action: '', subscriptionId: '', requestId: '' })
+    let [data,chData] = useState({ action: '', subscriptionId: '', authorization: '', requestId: '' })
     
     return (
         <div className="unsubscribe">
@@ -22,6 +22,13 @@ function UNSUBSCRIBE(props) {
                 <input name="path" onChange={function (e) {
                     e.preventDefault()
                     data.subscriptionId = e.target.value
+                }}></input>
+                <p></p>
+
+                authorization  :
+                <input className="path" onChange={function (e) {
+                    e.preventDefault()
+                    data.authorization = e.target.value
                 }}></input>
                 <p></p>
 

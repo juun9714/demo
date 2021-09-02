@@ -1,13 +1,10 @@
 /* eslint-disable*/
 import React, { useEffect, useState } from 'react'
-import _READ from './READ';
 import AUTH_READ from './AUTH_READ';
 import SRCH_READ from './SRCH_READ';
 import HISTORY_READ from './HISTORY_READ';
 import DISCOVERY_READ from './DISCOVERY_READ';
-import UPDATE from './UPDATE';
 import AUTH_UPDATE from './AUTH_UPDATE';
-import SUBSCRIBE from './SUBSCRIBE';
 import AUTH_SUBSCRIBE from './AUTH_SUBSCRIBE';
 import UNSUBSCRIBE from './UNSUBSCRIBE';
 
